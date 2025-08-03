@@ -1,11 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-// import "github.com/doccaico/nightup-go"
+	"github.com/doccaico/nightup-go"
+)
 
 func main() {
 
 	fmt.Printf("%#v\n", "Hello")
+	nightup.Greet()
 
 }
