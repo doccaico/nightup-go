@@ -65,6 +65,9 @@ func main() {
 	case "zig":
 		var install_path = getInstallPath(ini_path, "zig")
 		nightup.ZigInstall(install_path)
+	case "odin":
+		var install_path = getInstallPath(ini_path, "odin")
+		nightup.OdinInstall(install_path)
 	case "-h", "--help":
 		usage()
 	default:
