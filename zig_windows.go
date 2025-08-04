@@ -25,15 +25,15 @@ func ZigInstall(install_path string) {
 	url := strings.TrimRight(string(out), "\r\n")
 	fmt.Println("Download URL =>", url)
 
-	// ダウンロード (zip)
+	// ZIPをダウンロードする
 	cmd2 := exec.Command("curl", "-fsSOL", url)
 	err = cmd2.Run()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Download (zip) is done")
+	fmt.Println("Download (ZIP) is done")
 
-	// 解凍
+	// 解凍する
 	tarname := filepath.Base(url)
 	cmd3 := exec.Command("7za", "x", "-aoa", tarname, "-bso0", "-bsp0")
 	err = cmd3.Run()
@@ -52,7 +52,7 @@ func ZigInstall(install_path string) {
 		fmt.Println("Removed:", install_path)
 	}
 
-	// 移動
+	// ディレクトリを移動する
 	src := strings.TrimSuffix(tarname, ".zip")
 	cmd5 := exec.Command("cmd", "/c", fmt.Sprintf("move %s %s > nul", src, install_path))
 	err = cmd5.Run()
@@ -61,7 +61,7 @@ func ZigInstall(install_path string) {
 	}
 	fmt.Println("Moved:", install_path)
 
-	// zipとindex.jsonを削除する
+	// ZIPとindex.jsonを削除する
 	cmd6 := exec.Command("cmd", "/c", fmt.Sprintf("del %s", tarname))
 	err = cmd6.Run()
 	if err != nil {
