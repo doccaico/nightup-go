@@ -12,11 +12,11 @@ import (
 )
 
 func usage() {
-	fmt.Println("Usage:\n  nightup LANG")
+	fmt.Println("Usage:\n  nightup LANG/SOFTWARE")
 	fmt.Println("\nRequirements:")
 	fmt.Println("\tjq, 7za, curl")
-	fmt.Println("\nSupported languages:")
-	fmt.Println("\tzig, odin, v, go")
+	fmt.Println("\nSupported languages/software:")
+	fmt.Println("\tzig, odin, v, go, vim (Windows only)")
 	os.Exit(0)
 }
 
@@ -78,6 +78,10 @@ func main() {
 		var install_path = getInstallPath(ini_path, "go")
 		nightup.RemoveDirIfExist(install_path)
 		nightup.GoInstall(install_path)
+	case "vim":
+		var install_path = getInstallPath(ini_path, "vim")
+		// nightup.RemoveDirIfExist(install_path)
+		nightup.VimInstall(install_path)
 	case "-h", "--help":
 		usage()
 	default:

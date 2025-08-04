@@ -8,14 +8,15 @@ My updater tool written in Go.
 
 ## How to use
 ```sh
-$ nightup [lang]
+$ nightup [lang/software]
 ```
 
-## Supported languages
+## Supported languages/software
 - [zig](https://github.com/ziglang/zig)
 - [odin](https://github.com/odin-lang/Odin)
 - [v](https://github.com/vlang/v)
 - [go](https://github.com/golang/go)
+- [vim](https://github.com/vim/vim-win32-installer)(~/Downloadsへダウンロードするだけ)
 
 ## Build
 ```sh
