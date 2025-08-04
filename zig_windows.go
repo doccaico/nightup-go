@@ -72,5 +72,5 @@ func ZigInstall(install_path string) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Moved:", "Unnecessary files deleted")
+	fmt.Println("Unnecessary files deleted")
 }
