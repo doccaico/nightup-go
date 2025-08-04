@@ -16,7 +16,7 @@ $ nightup [lang/software]
 - [odin](https://github.com/odin-lang/Odin)
 - [v](https://github.com/vlang/v)
 - [go](https://github.com/golang/go)
-- [vim](https://github.com/vim/vim-win32-installer)(Just download it to ~/Downloads and open File Explorer)
+- [vim](https://github.com/vim/vim-win32-installer) (Just download it to ~/Downloads and open File Explorer)
 
 ## Build
 ```sh
