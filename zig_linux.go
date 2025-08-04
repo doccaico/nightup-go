@@ -2,7 +2,6 @@ package nightup
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
@@ -42,33 +41,23 @@ func ZigInstall(install_path string) {
 	}
 	fmt.Println("Extraction is done")
 
-	// インストール先のディレクトリが存在したら削除する
-	if _, err := os.Stat(install_path); !os.IsNotExist(err) {
-		cmd4 := exec.Command("rm", "-rf", install_path)
-		err = cmd4.Run()
-		if err != nil {
-			panic(err)
-		}
-		fmt.Println("Removed:", install_path)
-	}
-
 	// ディレクトリを移動する
 	src := strings.TrimSuffix(tarname, ".tar.xz")
-	cmd5 := exec.Command("mv", "-f", src, install_path)
-	err = cmd5.Run()
+	cmd4 := exec.Command("mv", "-f", src, install_path)
+	err = cmd4.Run()
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println("Moved:", install_path)
 
 	// TAR.XZとindex.jsonを削除する
-	cmd6 := exec.Command("rm", tarname)
-	err = cmd6.Run()
+	cmd5 := exec.Command("rm", tarname)
+	err = cmd5.Run()
 	if err != nil {
 		panic(err)
 	}
-	cmd7 := exec.Command("rm", "index.json")
-	err = cmd7.Run()
+	cmd6 := exec.Command("rm", "index.json")
+	err = cmd6.Run()
 	if err != nil {
 		panic(err)
 	}

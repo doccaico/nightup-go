@@ -64,10 +64,16 @@ func main() {
 	switch lang {
 	case "zig":
 		var install_path = getInstallPath(ini_path, "zig")
+		nightup.RemoveDirIfExist(install_path)
 		nightup.ZigInstall(install_path)
 	case "odin":
 		var install_path = getInstallPath(ini_path, "odin")
+		nightup.RemoveDirIfExist(install_path)
 		nightup.OdinInstall(install_path)
+	case "v":
+		var install_path = getInstallPath(ini_path, "v")
+		nightup.RemoveDirIfExist(install_path)
+		nightup.VInstall(install_path)
 	case "-h", "--help":
 		usage()
 	default:

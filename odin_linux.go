@@ -2,7 +2,6 @@ package nightup
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
 	"strings"
 )
@@ -54,32 +53,22 @@ func OdinInstall(install_path string) {
 	}
 	fmt.Println("Extraction is done")
 
-	// インストール先のディレクトリが存在したら削除する
-	if _, err := os.Stat(install_path); !os.IsNotExist(err) {
-		cmd5 := exec.Command("rm", "-rf", install_path)
-		err = cmd5.Run()
-		if err != nil {
-			panic(err)
-		}
-		fmt.Println("Removed:", install_path)
-	}
-
 	// ディレクトリを移動する
-	cmd6 := exec.Command("mv", "-f", "odin", install_path)
-	err = cmd6.Run()
+	cmd5 := exec.Command("mv", "-f", "odin", install_path)
+	err = cmd5.Run()
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println("Moved:", install_path)
 
 	// TAR.GZとnightly.jsonを削除する
-	cmd7 := exec.Command("rm", tarname)
-	err = cmd7.Run()
+	cmd6 := exec.Command("rm", tarname)
+	err = cmd6.Run()
 	if err != nil {
 		panic(err)
 	}
-	cmd8 := exec.Command("rm", "nightly.json")
-	err = cmd8.Run()
+	cmd7 := exec.Command("rm", "nightly.json")
+	err = cmd7.Run()
 	if err != nil {
 		panic(err)
 	}
