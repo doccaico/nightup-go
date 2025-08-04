@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 
 	"gopkg.in/ini.v1"
@@ -11,18 +12,30 @@ import (
 )
 
 func usage() {
-	fmt.Println("Usage:\n nightup LANG")
+	fmt.Println("Usage:\n  nightup LANG")
+	fmt.Println("\nRequirements:")
+	fmt.Println("\tjq, 7za, curl")
 	fmt.Println("\nSupported languages:")
 	fmt.Println("\tzig, odin, v, go")
 	os.Exit(0)
 }
 
-func getInstallPath(ini_path string, lang string) {
-	// ini_pathが存在するかどうかを確認して、存在しなければパニック
-	if _, err := os.Stat(ini_path); os.IsNotExist(err) {
-		panic("`" + ini_path + "` is not exist")
+func getInstallPath(ini_path string, lang string) string {
+	cfg, err := ini.Load(ini_path)
+	if err != nil {
+		panic(err)
 	}
+	var path = cfg.Section(nightup.SectionName).Key(lang).String()
+	return path
+}
 
+func checkRequirements() {
+	for _, exe := range [...]string{"jq", "7za", "curl"} {
+		_, err := exec.LookPath(exe)
+		if err != nil {
+			panic(err)
+		}
+	}
 }
 
 func main() {
@@ -30,33 +43,32 @@ func main() {
 	if len(os.Args) != 2 {
 		usage()
 	}
-	// fmt.Printf("%d\n", len(os.Args))
-	// nightup.Greet()
+
+	checkRequirements()
 
 	home_path, err := os.UserHomeDir()
 	if err != nil {
 		panic(err)
 	}
 
-	// ~/Downloadsが存在するかどうかを確認して、存在しなければパニック
 	download_path := filepath.Join(home_path, "Downloads")
-	if _, err := os.Stat(download_path); os.IsNotExist(err) {
-		panic("`" + download_path + "` is not exist")
+	ini_path := filepath.Join(home_path, nightup.IniFileName)
+	lang := os.Args[1]
+
+	// cd ~/Downloadsする
+	err = os.Chdir(download_path)
+	if err != nil {
+		panic(err)
 	}
 
-	ini_path := filepath.Join(home_path, nightup.IniFileName)
-	fmt.Println(ini_path)
-
-	lang := os.Args[1]
 	switch lang {
 	case "zig":
-		fmt.Printf("zig\n")
-		getInstallPath(ini_path, "zig")
+		var install_path = getInstallPath(ini_path, "zig")
+		nightup.ZigInstall(install_path)
 	case "-h", "--help":
 		usage()
 	default:
 		fmt.Printf("error: unsupported lang: %#q\n\n", lang)
 		usage()
 	}
-
 }
