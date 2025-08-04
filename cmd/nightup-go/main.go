@@ -74,6 +74,10 @@ func main() {
 		var install_path = getInstallPath(ini_path, "v")
 		nightup.RemoveDirIfExist(install_path)
 		nightup.VInstall(install_path)
+	case "go":
+		var install_path = getInstallPath(ini_path, "go")
+		nightup.RemoveDirIfExist(install_path)
+		nightup.GoInstall(install_path)
 	case "-h", "--help":
 		usage()
 	default:
